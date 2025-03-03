@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# Shortify
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Shortify is a simple and efficient URL shortener that helps you create and share short links easily. Built with React for the frontend and Node.js for the backend, Shortify ensures fast and reliable link shortening.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- 🔗 Shorten long URLs instantly
+- 📋 Copy shortened links with one click
+- 📤 Share links via social media or email
+- 📊 Track the number of clicks on each link (Future feature)
+- 🎨 Responsive and user-friendly UI
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend (Client)
+- React.js
+- Tailwind CSS
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend (Server)
+- Node.js
+- Express.js
+- MongoDB (for storing shortened URLs)
 
-### `npm test`
+## Installation & Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
+Ensure you have the following installed:
+- Node.js (v16+ recommended)
+- npm or yarn
 
-### `npm run build`
+### Steps to Run Locally
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/yourusername/shortify.git
+   cd shortify
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Install dependencies for the frontend and backend:**
+   ```sh
+   cd client
+   npm install  # Install React dependencies
+   cd  server
+   npm install  # Install Node.js dependencies
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Set up environment variables:**
+   - Create a `.env` file in the `server/` directory and add your MongoDB connection string:
+     ```env
+     MONGO_URI=your_mongodb_connection_string
+     BASE_URL=http://localhost:5000
+     ```
 
-### `npm run eject`
+4. **Start the development servers:**
+   ```sh
+   # Start backend
+   cd server
+   node index.js
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   # Start frontend (in a separate terminal)
+   cd  client
+   npm start
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Open `http://localhost:3000` in your browser to use Shortify.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Deployment
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Shortify is deployed on Vercel for the frontend and Render for the backend.
+- Live URL: [https://shortify.vercel.app](https://shortify.vercel.app)
+- API URL: [https://shortify-api.onrender.com](https://shortify-api.onrender.com)
 
-## Learn More
+## Contributing
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Contributions are welcome! If you’d like to improve Shortify:
+1. Fork the repo
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Make your changes and commit (`git commit -m 'Add new feature'`)
+4. Push to the branch (`git push origin feature-branch`)
+5. Open a pull request
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
+This project is licensed under the MIT License. Feel free to use and modify it as needed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+🚀 Happy shortening!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

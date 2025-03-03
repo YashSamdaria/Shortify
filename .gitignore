@@ -42,11 +42,13 @@ client/build/
 client/.eslintcache/
 client/.turbo/
 client/.vite/
+client/.env
 
 # Server-specific files
 server/node_modules/
 server/dist/
 server/.turbo/
+server/.env
 
 # Testing & Coverage
 coverage/
