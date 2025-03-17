@@ -6,7 +6,6 @@ const { nanoid } = require("nanoid");
 const validUrl = require("valid-url");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -23,7 +22,7 @@ mongoose
 
 const urlSchema = new mongoose.Schema({
   originalUrl: { type: String, required: true },
-  shortCode: { type: String, unique: true, required: true }, // Unique index
+  shortCode: { type: String, unique: true, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 
@@ -31,39 +30,33 @@ const urlSchema = new mongoose.Schema({
 urlSchema.index({ shortCode: 1 });
 const Url = mongoose.model("Url", urlSchema);
 
-// 🔹 POST Route to Shorten a URL with Retry on Duplicate ShortCode
+// POST Route to Shorten a URL
 app.post("/shorten", async (req, res) => {
   const { originalUrl } = req.body;
 
-  // Validate URL
   if (!validUrl.isUri(originalUrl)) {
     return res.status(400).json({ error: "Invalid URL" });
   }
 
   try {
-    // Check if URL already exists
     let existingUrl = await Url.findOne({ originalUrl });
     if (existingUrl) {
-      return res.json({
-        shortUrl: `${process.env.BASE_URL}/${existingUrl.shortCode}`,
-      });
+      return res.json({ shortUrl: `${process.env.BASE_URL}/${existingUrl.shortCode}` });
     }
 
     let shortCode;
     let newUrl;
-
-    // Retry insertion until a unique shortCode is generated
     while (true) {
       try {
         shortCode = nanoid(7);
         newUrl = await Url.create({ originalUrl, shortCode });
-        break; // If successful, break the loop
+        break;
       } catch (error) {
         if (error.code === 11000) {
           console.log(`⚠️ Duplicate shortCode found. Retrying...`);
-          continue; // Retry with a new shortCode
+          continue;
         }
-        throw error; // Stop if another error occurs
+        throw error;
       }
     }
 
@@ -73,23 +66,21 @@ app.post("/shorten", async (req, res) => {
   }
 });
 
-// 🔹 GET Route to Handle Redirects
+// GET Route to Handle Redirects
 app.get("/:id", async (req, res) => {
-    const { id } = req.params;
-  
-    try {
-      // Search for the shortCode in the database
-      const urlEntry = await Url.findOne({ shortCode: id });
-  
-      if (urlEntry) {
-        return res.redirect(urlEntry.originalUrl); // Redirect to the original URL
-      } else {
-        return res.status(404).json({ error: "URL not found" }); // Handle invalid shortCode
-      }
-    } catch (error) {
-      res.status(500).json({ error: "Server Error" });
+  const { id } = req.params;
+
+  try {
+    const urlEntry = await Url.findOne({ shortCode: id });
+
+    if (urlEntry) {
+      return res.redirect(urlEntry.originalUrl);
+    } else {
+      return res.status(404).json({ error: "URL not found" });
     }
-  });
-  
-// Start Server
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  } catch (error) {
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
+module.exports = app;
